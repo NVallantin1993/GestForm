@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 17 Janvier 2017 à 13:46
--- Version du serveur :  5.7.9
--- Version de PHP :  5.6.16
+-- Généré le :  Mer 15 Mars 2017 à 09:51
+-- Version du serveur :  5.6.17
+-- Version de PHP :  5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,32 +14,11 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Base de données :  `gestionformation`
 --
-
-DELIMITER $$
---
--- Procédures
---
-DROP PROCEDURE IF EXISTS `archiverFormations`$$
-CREATE DEFINER=`root`@`localhost` PROCEDURE `archiverFormations` ()  NO SQL
-BEGIN
-
-INSERT INTO tb_formationhistorique
-SELECT *
-FROM tb_formation
-WHERE frm_date < curdate();
-
-DELETE
-FROM tb_formation
-WHERE frm_date < curdate();
-
-END$$
-
-DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -47,7 +26,6 @@ DELIMITER ;
 -- Structure de la table `tb_employe`
 --
 
-DROP TABLE IF EXISTS `tb_employe`;
 CREATE TABLE IF NOT EXISTS `tb_employe` (
   `mpl_login` varchar(20) NOT NULL,
   `mpl_nom` varchar(20) NOT NULL,
@@ -88,7 +66,6 @@ INSERT INTO `tb_employe` (`mpl_login`, `mpl_nom`, `mpl_prenom`, `mpl_password`, 
 -- Structure de la table `tb_equipe`
 --
 
-DROP TABLE IF EXISTS `tb_equipe`;
 CREATE TABLE IF NOT EXISTS `tb_equipe` (
   `qp_nom` varchar(200) NOT NULL,
   `qp_chef` varchar(20) NOT NULL,
@@ -111,7 +88,6 @@ INSERT INTO `tb_equipe` (`qp_nom`, `qp_chef`) VALUES
 -- Structure de la table `tb_formation`
 --
 
-DROP TABLE IF EXISTS `tb_formation`;
 CREATE TABLE IF NOT EXISTS `tb_formation` (
   `frm_id` int(11) NOT NULL AUTO_INCREMENT,
   `frm_contenu` varchar(250) NOT NULL,
@@ -120,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `tb_formation` (
   `frm_prerequis` varchar(250) NOT NULL,
   `frm_cout` varchar(50) NOT NULL,
   PRIMARY KEY (`frm_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Contenu de la table `tb_formation`
@@ -138,7 +114,6 @@ INSERT INTO `tb_formation` (`frm_id`, `frm_contenu`, `frm_date`, `frm_nbjours`, 
 -- Structure de la table `tb_formationhistorique`
 --
 
-DROP TABLE IF EXISTS `tb_formationhistorique`;
 CREATE TABLE IF NOT EXISTS `tb_formationhistorique` (
   `frh_id` int(11) NOT NULL,
   `frh_contenu` varchar(250) NOT NULL,
@@ -165,7 +140,6 @@ INSERT INTO `tb_formationhistorique` (`frh_id`, `frh_contenu`, `frh_date`, `frh_
 -- Structure de la table `tb_inscrire`
 --
 
-DROP TABLE IF EXISTS `tb_inscrire`;
 CREATE TABLE IF NOT EXISTS `tb_inscrire` (
   `nsc_mpl_login` varchar(20) NOT NULL,
   `nsc_frm_id` int(11) NOT NULL,
